@@ -23,7 +23,7 @@ namespace AdminLTE.Data
 
                 if (result.Succeeded)
                 {
-                    userManager.AddToRoleAsync(user, "administrator").Wait();
+                    userManager.AddToRoleAsync(user, ENV.adminRole).Wait();
                 }
             }
         }

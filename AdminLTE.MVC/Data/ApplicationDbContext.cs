@@ -26,7 +26,7 @@ namespace AdminLTE.MVC.Data
             //this.SeedUsers(builder);
             //this.SeedUserRoles(builder);
 
-            builder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "administrator", NormalizedName = "administrator".ToUpper() });
+            builder.Entity<IdentityRole>().HasData(new IdentityRole { Name = ENV.adminRole, NormalizedName = ENV.adminRole.ToUpper() });
         }
     }
 }

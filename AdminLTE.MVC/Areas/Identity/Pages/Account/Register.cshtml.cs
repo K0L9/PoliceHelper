@@ -81,7 +81,7 @@ namespace AdminLTE.MVC.Areas.Identity.Pages.Account
             {
                 var user = new IdentityUser { UserName = Input.UserName, Email = Input.UserName + "@xyz.com"};
                 var userResult = await _userManager.CreateAsync(user, Input.Password);
-                var roleResult = await _userManager.AddToRoleAsync(user, "administrator");
+                var roleResult = await _userManager.AddToRoleAsync(user, ENV.adminRole);
                 if (userResult.Succeeded && roleResult.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");

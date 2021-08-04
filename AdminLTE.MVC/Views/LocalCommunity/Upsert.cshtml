@@ -1,0 +1,16 @@
+﻿@model AdminLTE.Models.LocalCommunity
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
+}
+
+@{ var mode = "";
+    if (Model.Id == 0)
+        mode = "creating";
+    else
+        mode = "editing";
+}
+
+<form enctype="multipart/form-data" method="post">
+
+</form>
