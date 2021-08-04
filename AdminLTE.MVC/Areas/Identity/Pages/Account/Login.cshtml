@@ -23,12 +23,12 @@
         </div>
         <div class="card">
             <div class="card-body login-card-body">
-                <p class="login-box-msg">Sign in to start your session</p>
+                <p class="login-box-msg">Вхід</p>
 
                 <form id="account" method="post">
-                    <span asp-validation-for="Input.Email" class="text-danger small"></span>
+                    <span asp-validation-for="Input.UserName" class="text-danger small"></span>
                     <div class="input-group mb-3">
-                        <input asp-for="Input.Email" class="form-control" placeholder="email" />
+                        <input asp-for="Input.UserName" class="form-control" placeholder="Логін" />
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -37,7 +37,7 @@
                     </div>
                     <span asp-validation-for="Input.Password" class="text-danger small"></span>
                     <div class="input-group mb-3">
-                        <input asp-for="Input.Password" class="form-control" placeholder="password" />
+                        <input asp-for="Input.Password" class="form-control" placeholder="Пароль" />
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -49,12 +49,12 @@
                             <div class="icheck-primary">
                                 <input type="checkbox" id="remember">
                                 <label for="remember">
-                                    Remember Me
+                                    Не виходити з системи
                                 </label>
                             </div>
                         </div>
                         <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                            <button type="submit" class="btn btn-primary btn-block">Увійти</button>
                         </div>
                     </div>
                     <div asp-validation-summary="All" class="text-danger small"></div>

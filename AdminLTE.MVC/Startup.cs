@@ -34,7 +34,16 @@ namespace AdminLTE.MVC
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnections")));
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false).AddRoles<IdentityRole>()
+            //HACK: зробити людський вивід помилок
+            services.AddDefaultIdentity<IdentityUser>(options =>
+            {
+                options.SignIn.RequireConfirmedAccount = false;
+                options.Password.RequiredLength = 5;   // min len
+                options.Password.RequireNonAlphanumeric = false;   // spec symp
+                options.Password.RequireLowercase = false; // low symb
+                options.Password.RequireUppercase = false; // up symb
+                options.Password.RequireDigit = false; // digits
+            }).AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddControllersWithViews();
@@ -47,6 +56,7 @@ namespace AdminLTE.MVC
                                 .Build();
                 o.Filters.Add(new AuthorizeFilter(policy));
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

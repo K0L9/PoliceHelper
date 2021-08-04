@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "S4sfz8Fgw5OMBE0VE+H2LMu1Y79lwxwKPJH26/cK0RVtPXHN2Pva5q4P0CHCjB+DWLrw+koFhWAs8po854md1Q==",
+  "dgSpecHash": "GrrRDM49Jgc/BWLS9qCCg7bggETey0J1oIwcqCMMt/Thwtu4PlxZ2KC5Ds7zMeJeDnEXZjQk7R0AqKPo35XxGw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\koval\\OneDrive\\Рабочий стол\\AdminLTE-ASP.NET-5-20210730T151945Z-001\\AdminLTE-ASP.NET-5\\AdminLTE.MVC\\AdminLTE.MVC.csproj",
+  "projectFilePath": "C:\\Users\\koval\\OneDrive\\Рабочий стол\\PoliceHelper\\PoliceHelper\\AdminLTE.MVC\\AdminLTE.MVC.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\koval\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\koval\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\5.0.8\\microsoft.aspnetcore.cryptography.internal.5.0.8.nupkg.sha512",

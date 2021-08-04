@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\koval\\OneDrive\\Рабочий стол\\AdminLTE-ASP.NET-5-20210730T151945Z-001\\AdminLTE-ASP.NET-5\\AdminLTE.MVC\\AdminLTE.MVC.csproj": {}
+    "C:\\Users\\koval\\OneDrive\\Рабочий стол\\PoliceHelper\\PoliceHelper\\AdminLTE.MVC\\AdminLTE.MVC.csproj": {}
   },
   "projects": {
-    "C:\\Users\\koval\\OneDrive\\Рабочий стол\\AdminLTE-ASP.NET-5-20210730T151945Z-001\\AdminLTE-ASP.NET-5\\AdminLTE.MVC\\AdminLTE.MVC.csproj": {
+    "C:\\Users\\koval\\OneDrive\\Рабочий стол\\PoliceHelper\\PoliceHelper\\AdminLTE.MVC\\AdminLTE.MVC.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\koval\\OneDrive\\Рабочий стол\\AdminLTE-ASP.NET-5-20210730T151945Z-001\\AdminLTE-ASP.NET-5\\AdminLTE.MVC\\AdminLTE.MVC.csproj",
+        "projectUniqueName": "C:\\Users\\koval\\OneDrive\\Рабочий стол\\PoliceHelper\\PoliceHelper\\AdminLTE.MVC\\AdminLTE.MVC.csproj",
         "projectName": "AdminLTE",
-        "projectPath": "C:\\Users\\koval\\OneDrive\\Рабочий стол\\AdminLTE-ASP.NET-5-20210730T151945Z-001\\AdminLTE-ASP.NET-5\\AdminLTE.MVC\\AdminLTE.MVC.csproj",
+        "projectPath": "C:\\Users\\koval\\OneDrive\\Рабочий стол\\PoliceHelper\\PoliceHelper\\AdminLTE.MVC\\AdminLTE.MVC.csproj",
         "packagesPath": "C:\\Users\\koval\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\koval\\OneDrive\\Рабочий стол\\AdminLTE-ASP.NET-5-20210730T151945Z-001\\AdminLTE-ASP.NET-5\\AdminLTE.MVC\\obj\\",
+        "outputPath": "C:\\Users\\koval\\OneDrive\\Рабочий стол\\PoliceHelper\\PoliceHelper\\AdminLTE.MVC\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\koval\\AppData\\Roaming\\NuGet\\NuGet.Config",

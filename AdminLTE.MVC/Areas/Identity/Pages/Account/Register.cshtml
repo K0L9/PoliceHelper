@@ -20,18 +20,18 @@
 <body class="hold-transition register-page">
     <div class="register-box">
         <div class="register-logo">
-            <a href="~/Home"><b>Admin</b>LTE</a>
+            <a href="~/Home">Реєстрація</a>
         </div>
 
         <div class="card">
             <div class="card-body register-card-body">
                 <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-                    <h4>Create a new account.</h4>
+                    <h4>Введіть дані нового адміністратора</h4>
                     <hr />
                     <div class="form-group">
-                        <label asp-for="Input.Email"></label>
-                        <input asp-for="Input.Email" class="form-control" />
-                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        <label asp-for="Input.UserName"></label>
+                        <input asp-for="Input.UserName" class="form-control" />
+                        <span asp-validation-for="Input.UserName" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Input.Password"></label>
@@ -43,20 +43,12 @@
                         <input asp-for="Input.ConfirmPassword" class="form-control" />
                         <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                     </div>
-                    <button type="submit" class="btn btn-primary">Register</button>
+                    <div class="row">
+                        <button asp-controller="Home" asp-action="Index" class="btn btn-secondary col-5">Скасувати</button>
+                        <div class="col-2"></div>
+                        <button type="submit" class="btn btn-primary col-5">Зареєструвати адміністратора</button>
+                    </div>
                 </form>
-                <div class="social-auth-links text-center">
-                    <p>- OR -</p>
-                    <a href="#" class="btn btn-block btn-primary">
-                        <i class="fab fa-facebook mr-2"></i>
-                        Sign up using Facebook
-                    </a>
-                    <a href="#" class="btn btn-block btn-danger">
-                        <i class="fab fa-google-plus mr-2"></i>
-                        Sign up using Google+
-                    </a>
-                </div>
-                <a href="login.html" class="text-center">I already have a membership</a>
             </div>
         </div>
     </div>
