@@ -13,18 +13,34 @@
             <div class="col-3"></div>
         </div>*@
     <div class="col-8">
-        @foreach (var el in Model.LocalCommunities)
-        {
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Index</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Count of workers</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var el in Model.LocalCommunities)
+                {
+                    <tr>
+                        <th scope="row">@el.Id</th>
+                        <td>@el.Title</td>
+                        <td>@el.Employees.Count()</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
 
-        }
     </div>
     <div class="col-1"></div>
     <div class="col-3 sticky-top border border-dark rounded bg-white p-2">
-        <form action="Add" method="post">
+        <form action="/LocalCommunity/Add" method="post">
             <h4>Добавлення нової територіальної громади</h4>
             <div class="col-10">
                 <div class="row my-3">
-                    <input asp-for="LocalCommunity.Title" class="form-control" placeholder="Назва ОТГ" />
+                    <input asp-for="LocalCommunity.Title" class="form-control" placeholder="Назва ОТГ" name="title" />
                     <span class="text-danger" asp-validation-for="LocalCommunity.Title"></span>
                 </div>
 
@@ -33,6 +49,7 @@
                 </div>
             </div>
         </form>
+
     </div>
 </div>
 <script>

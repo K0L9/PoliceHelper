@@ -39,11 +39,41 @@
                 {
                     <li class="nav-item ">
                         <a asp-controller="Employee" asp-action="Index" class="nav-link @Url.MakeActiveClass("employee","index")">
-                            <i class="nav-icon fas fa-lock"></i>
+                            <i class="nav-icon fas fa-users"></i>
                             <p>
                                 Робітники
                             </p>
                         </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="pages/charts/uplot.html" class="nav-link">
+                                    <i class="fas fa-angle-right nav-icon"></i>
+                                    <i class="far fa-id-card nav-icon"></i>
+                                    <p>Показати всіх</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="pages/charts/chartjs.html" class="nav-link">
+                                    <i class="fas fa-angle-right nav-icon"></i>
+                                    <i class="fas fa-user-plus nav-icon"></i>
+                                    <p>Добавити</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="pages/charts/flot.html" class="nav-link">
+                                    <i class="fas fa-angle-right nav-icon"></i>
+                                    <i class="fas fa-user-slash nav-icon"></i>
+                                    <p>Видалити</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="pages/charts/inline.html" class="nav-link">
+                                    <i class="fas fa-angle-right nav-icon"></i>
+                                    <i class="fas fa-user-edit nav-icon"></i>
+                                    <p>Редагувати</p>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="nav-item ">
                         <a asp-controller="LocalCommunity" asp-action="Index" class="nav-link @Url.MakeActiveClass("localcommunity","index")">
@@ -55,7 +85,7 @@
                     </li>
                     <li class="nav-item ">
                         <a asp-controller="Home" asp-action="Privacy" class="nav-link @Url.MakeActiveClass("home","privacy")">
-                            <i class="nav-icon fas fa-users"></i>
+                            <i class="nav-icon fas fa-lock"></i>
                             <p>
                                 Privacy
                             </p>

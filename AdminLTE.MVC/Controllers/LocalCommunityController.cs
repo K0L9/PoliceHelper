@@ -1,4 +1,5 @@
 ﻿using AdminLTE.Models;
+using AdminLTE.Models.ViewModels;
 using AdminLTE.MVC.Data;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -18,12 +19,20 @@ namespace AdminLTE.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            LocalCommunityVM lcvm = new LocalCommunityVM();
+            lcvm.LocalCommunities = _db.LocalCommunities;
+            lcvm.LocalCommunity = new LocalCommunity();
+
+            return View(lcvm);
         }
 
         [HttpPost]
-        public IActionResult Add(LocalCommunity lc)
+        public IActionResult Add(string title)
         {
+            LocalCommunity lc = new LocalCommunity() { Title = title };
+            _db.LocalCommunities.Add(lc);
+            _db.SaveChanges();
+
             return RedirectToAction(nameof(Index));
         }
 
