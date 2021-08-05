@@ -37,5 +37,18 @@ namespace AdminLTE.Controllers
         }
 
         //TODO: Notifications (до прикладу при добавленні і т.д.)
+        //TODO: Create pagination
+        [HttpPost]
+        public IActionResult Remove(int id)
+        {
+            LocalCommunity lc = _db.LocalCommunities.Find(id);
+            if (lc == null)
+                return NotFound();
+
+            _db.LocalCommunities.Remove(lc);
+            _db.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

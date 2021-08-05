@@ -4,6 +4,20 @@
     Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
 }
 
+<style>
+    table {
+        font-size: 16pt;
+    }
+
+    .lcRow button {
+        color: gray;
+    }
+
+        .lcRow button:hover {
+            color: black;
+        }
+</style>
+
 <div class="row">
     @*<div class="row">
             <div class="col-6"></div>
@@ -19,16 +33,28 @@
                     <th scope="col">Index</th>
                     <th scope="col">Title</th>
                     <th scope="col">Count of workers</th>
+                    <th scope="col">Operations</th>
                 </tr>
             </thead>
             <tbody>
+                @{int counter = 1; }
                 @foreach (var el in Model.LocalCommunities)
                 {
-                    <tr>
-                        <th scope="row">@el.Id</th>
-                        <td>@el.Title</td>
-                        <td>@el.Employees.Count()</td>
-                    </tr>
+                    using (Html.BeginForm("Remove", "LocalCommunity", new { id = el.Id }, FormMethod.Post))
+                    {
+                        <tr class="lcRow">
+                            <th scope="row">@counter</th>
+                            <td>@el.Title</td>
+                            <td>@el.Employees.Count()</td>
+                            <td>
+                                <button type="button" class="btn btnRemove"><i class="fas fa-trash-alt"></i></button>
+                                <button class="btn btnEdit"><i class="fas fa-pen"></i></button>
+                                <button type="submit" class="btn btnOk d-none"><i class="far fa-check-circle"></i></button>
+                                <button class="btn btnCancel d-none"><i class="far fa-times-circle"></i></button>
+                            </td>
+                        </tr>
+                        counter++;
+                    }
                 }
             </tbody>
         </table>
@@ -53,7 +79,36 @@
     </div>
 </div>
 <script>
-    $('#demo').pagination({
+    function MarkToRed(event) {
+        console.log("MARK")
+
+        var btn = event.target;
+        var row = btn.closest("td").closest("tr");
+        row.setAttribute("class", "lcRow bg-danger");
+
+        row.getElementsByClassName("btnOk")[0].setAttribute("class", "btn btnOk");
+        row.getElementsByClassName("btnCancel")[0].setAttribute("class", "btn btnCancel");
+    }
+
+    var btnsEdit = document.getElementsByClassName("btnEdit");
+    var btnsRemove = document.getElementsByClassName("btnRemove");
+    for (var i = 0; i < btnsEdit.length; i++) {
+        btnsRemove[i].addEventListener("click", MarkToRed)
+
+    }
+
+
+    //btnRemove.click(function (element) {
+    //    console.log("remove");
+    //})
+
+        //var row = element.closeset("td");
+        //row.setAttribute("background-color", "red");
+    //document.addEventListener(btnEdit, "click")
+</script>
+
+
+@*$('#demo').pagination({
         dataSource: [1, 2, 3, 4, 5, 6, 7, ... , 35],
         pageSize: 5,
         autoHidePrevious: true,
@@ -63,5 +118,4 @@
             var html = template(data);
             dataContainer.html(html);
         }
-    })
-</script>
+    })*@
