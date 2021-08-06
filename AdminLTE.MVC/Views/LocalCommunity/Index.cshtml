@@ -19,103 +19,68 @@
 </style>
 
 <div class="row">
-    @*<div class="row">
-            <div class="col-6"></div>
-            <div class="col-3">
-                <a class="btn btn-success" asp-action="Add" >Добавити територіальну громаду</a>
-            </div>
-            <div class="col-3"></div>
-        </div>*@
-    <div class="col-8">
+    <div class="col-9">
         <table class="table table-striped">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">Index</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Count of workers</th>
-                    <th scope="col">Operations</th>
+                    <th scope="col">Індекс</th>
+                    <th scope="col">Назва</th>
+                    <th scope="col">К-сть працівників</th>
+                    <th scope="col">Дії</th>
                 </tr>
             </thead>
             <tbody>
                 @{int counter = 1; }
                 @foreach (var el in Model.LocalCommunities)
                 {
-                    using (Html.BeginForm("Remove", "LocalCommunity", new { id = el.Id }, FormMethod.Post))
+                    @using (Html.BeginForm("Remove", "LocalCommunity", new { id = el.Id }, FormMethod.Post))
                     {
                         <tr class="lcRow">
                             <th scope="row">@counter</th>
-                            <td>@el.Title</td>
+                            <td class="titleData"><input id="titleInput" class="titleInput" type="text" value="@el.Title" hidden /><span class="titleText">@el.Title</span></td>
                             <td>@el.Employees.Count()</td>
                             <td>
                                 <button type="button" class="btn btnRemove"><i class="fas fa-trash-alt"></i></button>
-                                <button class="btn btnEdit"><i class="fas fa-pen"></i></button>
-                                <button type="submit" class="btn btnOk d-none"><i class="far fa-check-circle"></i></button>
-                                <button class="btn btnCancel d-none"><i class="far fa-times-circle"></i></button>
+                                <button type="button" class="btn btnEdit"><i class="fas fa-pen"></i></button>
+                                <button type="button" class="btn btnCancel" hidden><i class="far fa-times-circle"></i></button>
+                                <button type="submit" class="btn btnOk" hidden><i class="far fa-check-circle"></i></button>
+                                <input class="hiddenID" value="@el.Id" hidden/>
                             </td>
                         </tr>
-                        counter++;
                     }
+                    counter++;
                 }
             </tbody>
         </table>
 
     </div>
-    <div class="col-1"></div>
-    <div class="col-3 sticky-top border border-dark rounded bg-white p-2">
-        <form action="/LocalCommunity/Add" method="post">
-            <h4>Добавлення нової територіальної громади</h4>
-            <div class="col-10">
-                <div class="row my-3">
-                    <input asp-for="LocalCommunity.Title" class="form-control" placeholder="Назва ОТГ" name="title" />
-                    <span class="text-danger" asp-validation-for="LocalCommunity.Title"></span>
-                </div>
+    <div class="col-3">
+        <div class="sticky-top border border-dark rounded bg-white p-2">
+            @using (Html.BeginForm("ChooseOption", "LocalCommunity", FormMethod.Post))
+            {
+                <h4 id="addTitle">Добавлення нової територіальної громади</h4>
+                <div class="col-10">
+                    <div class="row my-3">
+                        <input id="inputTitle" asp-for="LocalCommunity.Title" class="form-control" placeholder="Назва ОТГ" name="title" />
+                        <span class="text-danger" asp-validation-for="LocalCommunity.Title"></span>
+                        <input id="hiddenId" value="-1" asp-for="LocalCommunity.Id" name="id" hidden />
+                    </div>
 
-                <div class="row">
-                    <input type="submit" value="Добавити" class="btn btn-success" />
+                    <div class="row">
+                        <div class="row">
+                            <div class="col">
+                                <input id="btnConfirmTitle" type="submit" value="Добавити" class="btn btn-success" />
+                            </div>
+                            <div class="col">
+                                <input id="btnClearField" type="button" value="Очистити" class="btn btn-secondary" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </form>
-
+                //TODO: Навести красоти, якось було видно що нас перекидає туди. ВАЛІДАЦІЯ
+            }
+        </div>
     </div>
 </div>
-<script>
-    function MarkToRed(event) {
-        console.log("MARK")
-
-        var btn = event.target;
-        var row = btn.closest("td").closest("tr");
-        row.setAttribute("class", "lcRow bg-danger");
-
-        row.getElementsByClassName("btnOk")[0].setAttribute("class", "btn btnOk");
-        row.getElementsByClassName("btnCancel")[0].setAttribute("class", "btn btnCancel");
-    }
-
-    var btnsEdit = document.getElementsByClassName("btnEdit");
-    var btnsRemove = document.getElementsByClassName("btnRemove");
-    for (var i = 0; i < btnsEdit.length; i++) {
-        btnsRemove[i].addEventListener("click", MarkToRed)
-
-    }
-
-
-    //btnRemove.click(function (element) {
-    //    console.log("remove");
-    //})
-
-        //var row = element.closeset("td");
-        //row.setAttribute("background-color", "red");
-    //document.addEventListener(btnEdit, "click")
-</script>
-
-
-@*$('#demo').pagination({
-        dataSource: [1, 2, 3, 4, 5, 6, 7, ... , 35],
-        pageSize: 5,
-        autoHidePrevious: true,
-        autoHideNext: true,
-        callback: function (data, pagination) {
-            // template method of yourself
-            var html = template(data);
-            dataContainer.html(html);
-        }
-    })*@
+<script src="~/js/localCommunityScript.js"></script>
+    

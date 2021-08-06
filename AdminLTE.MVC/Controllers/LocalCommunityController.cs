@@ -25,8 +25,6 @@ namespace AdminLTE.Controllers
 
             return View(lcvm);
         }
-
-        [HttpPost]
         public IActionResult Add(string title)
         {
             LocalCommunity lc = new LocalCommunity() { Title = title };
@@ -38,6 +36,17 @@ namespace AdminLTE.Controllers
 
         //TODO: Notifications (до прикладу при добавленні і т.д.)
         //TODO: Create pagination
+        public IActionResult Edit(int id, string title)
+        {
+            LocalCommunity lc = _db.LocalCommunities.Find(id);
+            if (lc == null)
+                return NotFound();
+
+            lc.Title = title;
+            _db.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
+        }
         [HttpPost]
         public IActionResult Remove(int id)
         {
@@ -49,6 +58,14 @@ namespace AdminLTE.Controllers
             _db.SaveChanges();
 
             return RedirectToAction(nameof(Index));
+        }
+        [HttpPost]
+        public IActionResult ChooseOption(string title, int? id)
+        {
+            if (id == -1)
+                return RedirectToAction(nameof(Add), new { title = title });
+            else
+                return RedirectToAction(nameof(Edit), new { id = id, title = title });
         }
     }
 }
