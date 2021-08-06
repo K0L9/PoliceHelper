@@ -340,4 +340,4 @@ C:\Users\koval\OneDrive\Рабочий стол\PoliceHelper\PoliceHelper\AdminL
 C:\Users\koval\OneDrive\Рабочий стол\PoliceHelper\PoliceHelper\AdminLTE.MVC\obj\Debug\net5.0\AdminLTE.MVC.genruntimeconfig.cache
 C:\Users\koval\OneDrive\Рабочий стол\PoliceHelper\PoliceHelper\AdminLTE.MVC\obj\Debug\net5.0\Razor\Views\Employee\Index.cshtml.g.cs
 C:\Users\koval\OneDrive\Рабочий стол\PoliceHelper\PoliceHelper\AdminLTE.MVC\obj\Debug\net5.0\Razor\Views\LocalCommunity\Index.cshtml.g.cs
-C:\Users\koval\OneDrive\Рабочий стол\PoliceHelper\PoliceHelper\AdminLTE.MVC\obj\Debug\net5.0\Razor\Views\LocalCommunity\Upsert.cshtml.g.cs
+C:\Users\koval\OneDrive\Рабочий стол\PoliceHelper\PoliceHelper\AdminLTE.MVC\obj\Debug\net5.0\Razor\Views\Employee\Upsert.cshtml.g.cs

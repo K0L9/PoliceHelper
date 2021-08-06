@@ -16,7 +16,13 @@
         .lcRow button:hover {
             color: black;
         }
+
+    h2 {
+        margin-bottom: 20px;
+    }
 </style>
+
+<h2>Об'єднані територіальні громади</h2>
 
 <div class="row">
     <div class="col-9">
@@ -44,7 +50,7 @@
                                 <button type="button" class="btn btnEdit"><i class="fas fa-pen"></i></button>
                                 <button type="button" class="btn btnCancel" hidden><i class="far fa-times-circle"></i></button>
                                 <button type="submit" class="btn btnOk" hidden><i class="far fa-check-circle"></i></button>
-                                <input class="hiddenID" value="@el.Id" hidden/>
+                                <input class="hiddenID" value="@el.Id" hidden />
                             </td>
                         </tr>
                     }
@@ -77,10 +83,14 @@
                         </div>
                     </div>
                 </div>
-                //TODO: Навести красоти, якось було видно що нас перекидає туди. ВАЛІДАЦІЯ
+                //TODO: Навести красоти, якось було видно що нас перекидає туди при едіті. ВАЛІДАЦІЯ
             }
         </div>
     </div>
 </div>
-<script src="~/js/localCommunityScript.js"></script>
-    
+@*@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}*@
+    <script src="~/js/localCommunityScript.js"></script>

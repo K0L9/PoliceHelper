@@ -1,4 +1,63 @@
-﻿@{
+﻿@model AdminLTE.Models.ViewModels.EmployeesLocalCommunitiesVM
+@{
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
 }
+@*//TODO: Якщо вийде, зробити якусь анмацію на появу картинки*@
+<style>
+    .tdImg {
+        display: none;
+    }
+
+    .forHover:hover .tdImg {
+        display: inline-block;
+    }
+
+    table {
+        text-align: center;
+    }
+</style>
+
+<form method="post">
+    <div class="row justify-content-end my-3">
+        <select asp-for="LocalCommunity.Id" asp-items="@Model.LocalCommunities" class="px-2">
+            <option selected>Усі ОТГ</option>
+        </select>
+        <input type="submit" value="Пошук" class="btn btn-primary ml-3 px-2" />
+    </div>
+</form>
+
+<div class="row">
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Індекс</th>
+                <th scope="col">Прізвище</th>
+                <th scope="col">Ім'я'</th>
+                <th scope="col">По-батькові</th>
+                <th scope="col">Телефон</th>
+                <th scope="col">ОТГ</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{int counter = 1;}
+            @foreach (var el in Model.Employees)
+            {
+                <tr class="lcRow forHover">
+                    <th scope="row">
+                        @counter
+                        <div class="tdImg position-absolute">
+                            <img src="@String.Concat(@AdminLTE.ENV.ImagePath, el.PhotoPath)" alt="Worker photo" width="200" />
+                        </div>
+                    </th>
+                    <td>@el.LastName</td>
+                    <td>@el.FirstName</td>
+                    <td>@el.MiddleName</td>
+                    <td>@el.Number</td>
+                    <td>@el.LocalCommunity.Title</td>
+                </tr>
+                counter++;
+            }
+        </tbody>
+    </table>
+</div>

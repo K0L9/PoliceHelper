@@ -2,6 +2,7 @@
 using AdminLTE.Models.ViewModels;
 using AdminLTE.MVC.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace AdminLTE.Controllers
         public IActionResult Index()
         {
             LocalCommunityVM lcvm = new LocalCommunityVM();
-            lcvm.LocalCommunities = _db.LocalCommunities;
+            lcvm.LocalCommunities = _db.LocalCommunities.Include(x => x.Employees);
             lcvm.LocalCommunity = new LocalCommunity();
 
             return View(lcvm);
@@ -69,3 +70,5 @@ namespace AdminLTE.Controllers
         }
     }
 }
+
+//TODO: перевести це на автомат. відсилку. (забрать нейм в інпутах, приймать в методі ChooseOption просто VM (Той же що приходить у view'шку))

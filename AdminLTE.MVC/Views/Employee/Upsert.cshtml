@@ -1,0 +1,67 @@
+﻿@model AdminLTE.Models.ViewModels.EmployeeLCVM
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
+}
+<h2>Добавлення нового працівника</h2>
+<form method="post" enctype="multipart/form-data">
+    <input asp-for="Employee.Id" hidden />
+    <div class="container">
+        <div class="row my-3">
+            <div class="col">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="">П.І.Б.</span>
+                    </div>
+                    <input type="text" asp-for="Employee.LastName" placeholder="Прізвище" class="form-control" />
+                    <span class="text-danger" asp-validation-for="Employee.LastName"></span>
+
+                    <input type="text" asp-for="Employee.FirstName" placeholder="Ім'я" class="form-control" />
+                    <span class="text-danger" asp-validation-for="Employee.FirstName"></span>
+
+                    <input type="text" asp-for="Employee.MiddleName" placeholder="По-батькові" class="form-control" />
+                    <span class="text-danger" asp-validation-for="Employee.MiddleName"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <input type="text" asp-for="Employee.Number" placeholder="Номер телефону" class="form-control" />
+                <span class="text-danger" asp-validation-for="Employee.Number"></span>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <div class="input-group mb-3">
+                    <select asp-for="Employee.LocalCommunityId" class="custom-select" id="inputGroupSelect02" asp-items="@Model.LocalCommunities">
+                        <option selected disabled>Оберіть ОТГ</option>
+                    </select>
+                    <span asp-validation-for="Employee.LocalCommunityId" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <input type="file" name="files" id="upload" multiple class="form-control" />
+            </div>
+        </div>
+        <div class="row justify-content-end">
+            <button type="button" class="btn btn-secondary mr-3 p-3" asp-controller="Employee" asp-action="Cancel">Очистити</button>
+            <input type="submit" class="btn btn-success p-3" value="Створити" />
+        </div>
+    </div>
+</form>
+
+@*<script>
+        var inputPhoto = document.getElementById("upload");
+        inputPhoto.addEventListener("input", SwitchPhoto)
+
+        function SwitchPhoto(event) {
+            console.log("INPUT WORK")
+
+            var input = event.target;
+
+            var imageField = document.getElementById("photoField")
+            imageField.setAttribute("src", input.value);
+        }
+    </script>*@

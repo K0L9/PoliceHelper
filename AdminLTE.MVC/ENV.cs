@@ -7,6 +7,12 @@ namespace AdminLTE
 {
     public class ENV
     {
-        public static string adminRole = "administrator";
+        //images
+        public const string ImagePath = @"\img\employees\";
+        public static string NoImageName = @"no_name.jpg";
+
+        //roles
+        public static string AdminRole = "administrator";
+
     }
 }
