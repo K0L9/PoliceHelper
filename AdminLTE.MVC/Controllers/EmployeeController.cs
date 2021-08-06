@@ -23,7 +23,7 @@ namespace AdminLTE.Controllers
             _wb = wb;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(IndexMode mode = IndexMode.Show)
         {
             EmployeesLocalCommunitiesVM vm = new EmployeesLocalCommunitiesVM()
             {
@@ -33,7 +33,8 @@ namespace AdminLTE.Controllers
                     Text = x.Title,
                     Value = x.Id.ToString()
                 }),
-                LocalCommunity = new LocalCommunity()
+                LocalCommunity = new LocalCommunity(),
+                Mode = mode 
             };
             return View(vm);
         }
@@ -47,7 +48,8 @@ namespace AdminLTE.Controllers
                     Text = x.Title,
                     Value = x.Id.ToString()
                 }),
-                LocalCommunity = new LocalCommunity()
+                LocalCommunity = new LocalCommunity(),
+                Mode = vm.Mode
             };
             if (vm.LocalCommunity.Id == 0)
                 _vm.Employees = _db.Employees.Include(x => x.LocalCommunity);
@@ -55,6 +57,22 @@ namespace AdminLTE.Controllers
                 _vm.Employees = _db.Employees.Where(x => x.LocalCommunityId == vm.LocalCommunity.Id).Include(x => x.LocalCommunity);
 
             return View(_vm);
+        }
+        public IActionResult Remove()
+        {
+            return RedirectToAction(nameof(Index), new { mode = IndexMode.SelectForRemove });
+        }
+        [HttpPost]
+        public IActionResult Remove(int id)
+        {
+            Employee emp = _db.Employees.Find(id);
+            if (emp == null)
+                return NotFound();
+
+            _db.Remove(emp);
+            _db.SaveChanges();
+
+            return RedirectToAction(nameof(Index));
         }
         public IActionResult Upsert(int? id)
         {

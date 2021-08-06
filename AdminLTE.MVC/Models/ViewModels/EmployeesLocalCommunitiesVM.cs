@@ -6,10 +6,22 @@ using System.Threading.Tasks;
 
 namespace AdminLTE.Models.ViewModels
 {
+    public enum IndexMode
+    {
+        Show,
+        SelectForRemove,
+        SelectForEdit
+    }
     public class EmployeesLocalCommunitiesVM
     {
         public IEnumerable<Employee> Employees { get; set; }
         public IEnumerable<SelectListItem> LocalCommunities { get; set; }
         public LocalCommunity LocalCommunity { get; set; }
+        public IndexMode Mode { get; set; }
+
+        public EmployeesLocalCommunitiesVM()
+        {
+            Mode = IndexMode.Show;
+        }
     }
 }

@@ -28,6 +28,7 @@
 </form>
 
 <div class="row">
+
     <table class="table table-striped">
         <thead class="thead-dark">
             <tr>
@@ -43,21 +44,80 @@
             @{int counter = 1;}
             @foreach (var el in Model.Employees)
             {
-                <tr class="lcRow forHover">
-                    <th scope="row">
-                        @counter
-                        <div class="tdImg position-absolute">
-                            <img src="@String.Concat(@AdminLTE.ENV.ImagePath, el.PhotoPath)" alt="Worker photo" width="200" />
-                        </div>
-                    </th>
-                    <td>@el.LastName</td>
-                    <td>@el.FirstName</td>
-                    <td>@el.MiddleName</td>
-                    <td>@el.Number</td>
-                    <td>@el.LocalCommunity.Title</td>
-                </tr>
+                @if (Model.Mode != AdminLTE.Models.ViewModels.IndexMode.Show)
+                {
+                    <tr class="tableRow">
+                        <td class="tdButtons" hidden>
+                            @if (Model.Mode == AdminLTE.Models.ViewModels.IndexMode.SelectForRemove)
+                            {
+                                <form action="\Employee\Remove\" method="post">
+                                    <input value="@el.Id" asp-for="LocalCommunity.Id" name="id" hidden />
+                                    <button type="button" class="btn btnCancel"><i class="far fa-times-circle"></i></button>
+                                    <button type="submit" class="btn btnOk"><i class="far fa-check-circle"></i></button>
+                                </form>
+                            }
+                        </td>
+                        <th scope="row" class="forHover">
+                            @counter
+                            <div class="tdImg position-absolute">
+                                <img src="@String.Concat(@AdminLTE.ENV.ImagePath, el.PhotoPath)" alt="Worker photo" width="200" />
+                            </div>
+                        </th>
+                        <td>@el.LastName</td>
+                        <td>@el.FirstName</td>
+                        <td>@el.MiddleName</td>
+                        <td>@el.Number</td>
+                        <td>@el.LocalCommunity.Title</td>
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+                        <th scope="row" class="forHover">
+                            @counter
+                            <div class="tdImg position-absolute">
+                                <img src="@String.Concat(@AdminLTE.ENV.ImagePath, el.PhotoPath)" alt="Worker photo" width="200" />
+                            </div>
+                        </th>
+                        <td>@el.LastName</td>
+                        <td>@el.FirstName</td>
+                        <td>@el.MiddleName</td>
+                        <td>@el.Number</td>
+                        <td>@el.LocalCommunity.Title</td>
+                    </tr>
+                }
                 counter++;
             }
         </tbody>
     </table>
 </div>
+
+<script>
+    var rowsHover = document.getElementsByClassName("tableRow");
+
+    for (var i = 0; i < rowsHover.length; i++) {
+        rowsHover[i].onclick = EnableControlBtns;
+    }
+
+    var btnsCancel = document.getElementsByClassName("btnCancel");
+
+    for (var i = 0; i < btnsCancel.length; i++) {
+        btnsCancel[i].onclick = DenyRemove;
+    }
+
+    function EnableControlBtns(event) {
+        var row = event.target.closest("tr");
+
+        row.setAttribute("class", "tableRow bg-danger")
+        row.getElementsByClassName("tdButtons")[0].hidden = false;
+        row.getElementsByClassName("forHover")[0].hidden = true;
+    }
+
+    function DenyRemove(event) {
+        var row = event.target.closest("tr");
+
+        row.setAttribute("class", "bg-danger")
+        row.getElementsByClassName("tdButtons")[0].hidden = true;
+        row.getElementsByClassName("forHover")[0].hidden = false;
+    }
+</script>
