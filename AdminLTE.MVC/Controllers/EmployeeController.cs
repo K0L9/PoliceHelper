@@ -62,6 +62,15 @@ namespace AdminLTE.Controllers
         {
             return RedirectToAction(nameof(Index), new { mode = IndexMode.SelectForRemove });
         }
+        public IActionResult Edit()
+        {
+            return RedirectToAction(nameof(Index), new { mode = IndexMode.SelectForEdit });
+        }
+        [HttpPost]
+        public IActionResult Edit(int id)
+        {
+            return RedirectToAction(nameof(Upsert), new { id = id });
+        }
         [HttpPost]
         public IActionResult Remove(int id)
         {
@@ -78,13 +87,20 @@ namespace AdminLTE.Controllers
         {
             EmployeeLCVM lCVM = new EmployeeLCVM()
             {
-                Employee = new Employee(),
                 LocalCommunities = _db.LocalCommunities.Select(x => new SelectListItem()
                 {
                     Text = x.Title,
                     Value = x.Id.ToString()
                 })
             };
+
+            if (id == null)
+                lCVM.Employee = new Employee();
+            else
+                lCVM.Employee = _db.Employees.Find(id);
+
+            if (lCVM.Employee == null)
+                return NotFound();
 
             return View(lCVM);
         }
@@ -122,6 +138,28 @@ namespace AdminLTE.Controllers
 
                     emp.Employee.PhotoPath = fileName + extensions;
                     _db.Employees.Add(emp.Employee);
+                }
+                else
+                {
+                    var formObject = _db.Employees.AsNoTracking().FirstOrDefault(u => u.Id == emp.Employee.Id);
+                    if (files.Count > 0)
+                    {
+                        var oldFile = Path.Combine(upload, formObject.PhotoPath);
+                        if (System.IO.File.Exists(oldFile))
+                            System.IO.File.Delete(oldFile);
+
+                        using (var fileStream = new FileStream(Path.Combine(upload, fileName + extensions), FileMode.Create))
+                        {
+                            files[0].CopyTo(fileStream);
+                        }
+
+                        emp.Employee.PhotoPath = fileName + extensions;
+                    }
+                    else
+                    {
+                        emp.Employee.PhotoPath = formObject.PhotoPath;
+                    }
+                    _db.Employees.Update(emp.Employee);
                 }
                 _db.SaveChanges();
                 return RedirectToAction(nameof(Index));

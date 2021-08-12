@@ -56,6 +56,14 @@
                                     <button type="submit" class="btn btnOk"><i class="far fa-check-circle"></i></button>
                                 </form>
                             }
+                            @if (Model.Mode == AdminLTE.Models.ViewModels.IndexMode.SelectForEdit)
+                            {
+                                <form action="\Employee\Edit\" method="post">
+                                    <input value="@el.Id" asp-for="LocalCommunity.Id" name="id" hidden />
+                                    <button type="button" class="btn btnCancel"><i class="far fa-times-circle"></i></button>
+                                    <button type="submit" class="btn btnOk"><i class="far fa-check-circle"></i></button>
+                                </form>
+                            }
                         </td>
                         <th scope="row" class="forHover">
                             @counter
