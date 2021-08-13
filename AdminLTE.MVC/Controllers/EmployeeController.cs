@@ -24,9 +24,9 @@ namespace AdminLTE.Controllers
             _wb = wb;
         }
          
-        public IActionResult Index(EmployeesLocalCommunitiesVM otherVm = null, int page = 1)
+        public IActionResult Index(EmployeesLocalCommunitiesVM otherVm = null, int page = 1, IndexMode mode = IndexMode.Show, int lcId = -1)
         {
-            int pageSize = 3;
+            int pageSize = 10;
 
             IEnumerable<Employee> employees;
 
@@ -46,8 +46,8 @@ namespace AdminLTE.Controllers
                     Text = x.Title,
                     Value = x.Id.ToString()
                 }),
-                Filter = new EmployeesFilterVM(),
-                Mode = otherVm.Mode,
+                Filter = otherVm.Filter == null ? new EmployeesFilterVM() : otherVm.Filter,
+                Mode = mode,
                 PageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = empCount },
                 IsFilter = false
             };

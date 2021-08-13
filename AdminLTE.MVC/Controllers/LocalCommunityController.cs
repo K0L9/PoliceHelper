@@ -21,7 +21,7 @@ namespace AdminLTE.Controllers
 
         public IActionResult Index(int page = 1)
         {
-            int pageSize = 3;
+            int pageSize = 5;
 
             IEnumerable<LocalCommunity> localCommunities = _db.LocalCommunities.Include(x => x.Employees);
             int lcCount = localCommunities.Count();

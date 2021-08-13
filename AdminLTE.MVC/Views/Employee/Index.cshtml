@@ -116,20 +116,24 @@ else if (Model.Mode == AdminLTE.Models.ViewModels.IndexMode.SelectForRemove)
             }
         </tbody>
     </table>
-
-    <div class="btn-group m-auto">
-        @for (int i = 1; i <= Model.PageInfo.TotalPages; i++)
+    @*href="@Url.Action("Index", new { otherVm = Model, page = i })"*@
+<div class="btn-group m-auto">
+    @for (int i = 1; i <= Model.PageInfo.TotalPages; i++)
+    {
+        Html.BeginForm("Index", "Employee", new { otherVm = Model, page = i, mode = Model.Mode, lcId = Model.Filter.LCId });
         {
             if (i == Model.PageInfo.PageNumber)
             {
-                <a href="@Url.Action("Index", new { otherVm = Model, page = i })" class="btn selected btn-primary">@i.ToString()</a>
+                <input type="submit" class="btn selected btn-primary" value="@i.ToString()"/>
             }
             else
             {
-                <a href="@Url.Action("Index", new { otherVm = Model, page = i })" class="btn btn-default">@i.ToString()</a>
+                <input type="submit" class="btn btn-default" value="@i.ToString()"/>
             }
         }
-    </div>
+        Html.EndForm();
+    }
+</div>
 </div>
 
 <script>
