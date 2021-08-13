@@ -1,4 +1,5 @@
-﻿using AdminLTE.Models;
+﻿using AdminLTE.Helpers;
+using AdminLTE.Models;
 using AdminLTE.Models.ViewModels;
 using AdminLTE.MVC.Data;
 using Microsoft.AspNetCore.Hosting;
@@ -22,41 +23,35 @@ namespace AdminLTE.Controllers
             _db = db;
             _wb = wb;
         }
-
-        public IActionResult Index(IndexMode mode = IndexMode.Show)
+         
+        public IActionResult Index(EmployeesLocalCommunitiesVM otherVm = null, int page = 1)
         {
+            int pageSize = 3;
+
+            IEnumerable<Employee> employees;
+
+            if (otherVm == null || otherVm.Filter == null || otherVm.Filter.LCId == 0)
+                employees = _db.Employees.Include(x => x.LocalCommunity);
+            else
+                employees = _db.Employees.Where(x => x.LocalCommunityId == otherVm.Filter.LCId).Include(x => x.LocalCommunity);
+
+            int empCount = employees.Count();
+            employees = employees.Skip((page - 1) * pageSize).Take(pageSize);
+
             EmployeesLocalCommunitiesVM vm = new EmployeesLocalCommunitiesVM()
             {
-                Employees = _db.Employees.Include(x => x.LocalCommunity),
+                Employees = employees,
                 LocalCommunities = _db.LocalCommunities.Select(x => new SelectListItem()
                 {
                     Text = x.Title,
                     Value = x.Id.ToString()
                 }),
-                LocalCommunity = new LocalCommunity(),
-                Mode = mode 
+                Filter = new EmployeesFilterVM(),
+                Mode = otherVm.Mode,
+                PageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = empCount },
+                IsFilter = false
             };
             return View(vm);
-        }
-        [HttpPost]
-        public IActionResult Index(EmployeesLocalCommunitiesVM vm)
-        {
-            EmployeesLocalCommunitiesVM _vm = new EmployeesLocalCommunitiesVM
-            {
-                LocalCommunities = _db.LocalCommunities.Select(x => new SelectListItem()
-                {
-                    Text = x.Title,
-                    Value = x.Id.ToString()
-                }),
-                LocalCommunity = new LocalCommunity(),
-                Mode = vm.Mode
-            };
-            if (vm.LocalCommunity.Id == 0)
-                _vm.Employees = _db.Employees.Include(x => x.LocalCommunity);
-            else
-                _vm.Employees = _db.Employees.Where(x => x.LocalCommunityId == vm.LocalCommunity.Id).Include(x => x.LocalCommunity);
-
-            return View(_vm);
         }
         public IActionResult Remove()
         {

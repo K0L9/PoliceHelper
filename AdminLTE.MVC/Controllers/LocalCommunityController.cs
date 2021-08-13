@@ -1,4 +1,5 @@
-﻿using AdminLTE.Models;
+﻿using AdminLTE.Helpers;
+using AdminLTE.Models;
 using AdminLTE.Models.ViewModels;
 using AdminLTE.MVC.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -18,11 +19,20 @@ namespace AdminLTE.Controllers
             _db = db;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
-            LocalCommunityVM lcvm = new LocalCommunityVM();
-            lcvm.LocalCommunities = _db.LocalCommunities.Include(x => x.Employees);
-            lcvm.LocalCommunity = new LocalCommunity();
+            int pageSize = 3;
+
+            IEnumerable<LocalCommunity> localCommunities = _db.LocalCommunities.Include(x => x.Employees);
+            int lcCount = localCommunities.Count();
+            localCommunities = localCommunities.Skip((page - 1) * pageSize).Take(pageSize);
+
+            LocalCommunityVM lcvm = new LocalCommunityVM() 
+            {
+                LocalCommunities = localCommunities,
+                LocalCommunity = new LocalCommunity(),
+                PageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = lcCount }
+            };
 
             return View(lcvm);
         }

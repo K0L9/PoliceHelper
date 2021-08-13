@@ -341,5 +341,12 @@ C:\Users\koval\OneDrive\Рабочий стол\PoliceHelper\PoliceHelper\AdminL
 C:\Users\koval\OneDrive\Рабочий стол\PoliceHelper\PoliceHelper\AdminLTE.MVC\obj\Debug\net5.0\Razor\Views\Employee\Index.cshtml.g.cs
 C:\Users\koval\OneDrive\Рабочий стол\PoliceHelper\PoliceHelper\AdminLTE.MVC\obj\Debug\net5.0\Razor\Views\LocalCommunity\Index.cshtml.g.cs
 C:\Users\koval\OneDrive\Рабочий стол\PoliceHelper\PoliceHelper\AdminLTE.MVC\obj\Debug\net5.0\Razor\Views\Employee\Upsert.cshtml.g.cs
-C:\Users\koval\OneDrive\Рабочий стол\PoliceHelper\PoliceHelper\AdminLTE.MVC\bin\Debug\net5.0\PagedList.dll
-C:\Users\koval\OneDrive\Рабочий стол\PoliceHelper\PoliceHelper\AdminLTE.MVC\bin\Debug\net5.0\PagedList.Mvc.dll
+C:\Users\koval\OneDrive\Рабочий стол\PoliceHelper\PoliceHelper\AdminLTE.MVC\bin\Debug\net5.0\System.Web.Mvc.dll
+C:\Users\koval\OneDrive\Рабочий стол\PoliceHelper\PoliceHelper\AdminLTE.MVC\bin\Debug\net5.0\System.Web.Razor.dll
+C:\Users\koval\OneDrive\Рабочий стол\PoliceHelper\PoliceHelper\AdminLTE.MVC\bin\Debug\net5.0\System.Web.Helpers.dll
+C:\Users\koval\OneDrive\Рабочий стол\PoliceHelper\PoliceHelper\AdminLTE.MVC\bin\Debug\net5.0\System.Web.WebPages.Deployment.dll
+C:\Users\koval\OneDrive\Рабочий стол\PoliceHelper\PoliceHelper\AdminLTE.MVC\bin\Debug\net5.0\System.Web.WebPages.Razor.dll
+C:\Users\koval\OneDrive\Рабочий стол\PoliceHelper\PoliceHelper\AdminLTE.MVC\bin\Debug\net5.0\System.Web.WebPages.dll
+C:\Users\koval\OneDrive\Рабочий стол\PoliceHelper\PoliceHelper\AdminLTE.MVC\bin\Debug\net5.0\Microsoft.DotNet.PlatformAbstractions.dll
+C:\Users\koval\OneDrive\Рабочий стол\PoliceHelper\PoliceHelper\AdminLTE.MVC\bin\Debug\net5.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\koval\OneDrive\Рабочий стол\PoliceHelper\PoliceHelper\AdminLTE.MVC\bin\Debug\net5.0\Microsoft.Web.Infrastructure.dll

@@ -1,4 +1,5 @@
 ﻿@model AdminLTE.Models.ViewModels.EmployeesLocalCommunitiesVM
+@using AdminLTE.Helpers
 @{
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
@@ -14,13 +15,30 @@
     }
 
     table {
+        font-size: 14pt;
         text-align: center;
     }
 </style>
 
-<form method="post">
+@if (Model.Mode == AdminLTE.Models.ViewModels.IndexMode.Show)
+{
+    <h1>Усі працівники</h1>
+    <h5>Наведіть на індекс для появи фото</h5>
+}
+else if (Model.Mode == AdminLTE.Models.ViewModels.IndexMode.SelectForEdit)
+{
+    <h2>Редагування працівника</h2>
+    <h5>Натисніть для редагування</h5>
+}
+else if (Model.Mode == AdminLTE.Models.ViewModels.IndexMode.SelectForRemove)
+{
+    <h2>Видалення працівника</h2>
+    <h5>Натисніть для видалення</h5>
+}
+
+<form>
     <div class="row justify-content-end my-3">
-        <select asp-for="LocalCommunity.Id" asp-items="@Model.LocalCommunities" class="px-2">
+        <select asp-for="Filter.LCId" asp-items="@Model.LocalCommunities" class="px-2">
             <option selected>Усі ОТГ</option>
         </select>
         <input type="submit" value="Пошук" class="btn btn-primary ml-3 px-2" />
@@ -51,7 +69,7 @@
                             @if (Model.Mode == AdminLTE.Models.ViewModels.IndexMode.SelectForRemove)
                             {
                                 <form action="\Employee\Remove\" method="post">
-                                    <input value="@el.Id" asp-for="LocalCommunity.Id" name="id" hidden />
+                                    <input value="@el.Id" name="id" hidden />
                                     <button type="button" class="btn btnCancel"><i class="far fa-times-circle"></i></button>
                                     <button type="submit" class="btn btnOk"><i class="far fa-check-circle"></i></button>
                                 </form>
@@ -59,14 +77,14 @@
                             @if (Model.Mode == AdminLTE.Models.ViewModels.IndexMode.SelectForEdit)
                             {
                                 <form action="\Employee\Edit\" method="post">
-                                    <input value="@el.Id" asp-for="LocalCommunity.Id" name="id" hidden />
+                                    <input value="@el.Id" name="id" hidden />
                                     <button type="button" class="btn btnCancel"><i class="far fa-times-circle"></i></button>
                                     <button type="submit" class="btn btnOk"><i class="far fa-check-circle"></i></button>
                                 </form>
                             }
                         </td>
                         <th scope="row" class="forHover">
-                            @counter
+                            @((Model.PageInfo.PageNumber - 1) * (Model.PageInfo.PageSize) + counter)
                             <div class="tdImg position-absolute">
                                 <img src="@String.Concat(@AdminLTE.ENV.ImagePath, el.PhotoPath)" alt="Worker photo" width="200" />
                             </div>
@@ -82,7 +100,7 @@
                 {
                     <tr>
                         <th scope="row" class="forHover">
-                            @counter
+                            @((Model.PageInfo.PageNumber - 1) * (Model.PageInfo.PageSize) + counter)
                             <div class="tdImg position-absolute">
                                 <img src="@String.Concat(@AdminLTE.ENV.ImagePath, el.PhotoPath)" alt="Worker photo" width="200" />
                             </div>
@@ -98,6 +116,20 @@
             }
         </tbody>
     </table>
+
+    <div class="btn-group m-auto">
+        @for (int i = 1; i <= Model.PageInfo.TotalPages; i++)
+        {
+            if (i == Model.PageInfo.PageNumber)
+            {
+                <a href="@Url.Action("Index", new { otherVm = Model, page = i })" class="btn selected btn-primary">@i.ToString()</a>
+            }
+            else
+            {
+                <a href="@Url.Action("Index", new { otherVm = Model, page = i })" class="btn btn-default">@i.ToString()</a>
+            }
+        }
+    </div>
 </div>
 
 <script>
@@ -115,8 +147,8 @@
 
     function EnableControlBtns(event) {
         var row = event.target.closest("tr");
-
         row.setAttribute("class", "tableRow bg-danger")
+
         row.getElementsByClassName("tdButtons")[0].hidden = false;
         row.getElementsByClassName("forHover")[0].hidden = true;
     }
@@ -124,7 +156,7 @@
     function DenyRemove(event) {
         var row = event.target.closest("tr");
 
-        row.setAttribute("class", "bg-danger")
+        row.setAttribute("class", "tableRow")
         row.getElementsByClassName("tdButtons")[0].hidden = true;
         row.getElementsByClassName("forHover")[0].hidden = false;
     }

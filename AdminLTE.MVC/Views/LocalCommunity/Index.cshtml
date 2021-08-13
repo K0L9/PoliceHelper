@@ -6,7 +6,8 @@
 
 <style>
     table {
-        font-size: 16pt;
+        font-size: 14pt;
+        text-align: center;
     }
 
     .lcRow button {
@@ -42,7 +43,9 @@
                     @using (Html.BeginForm("Remove", "LocalCommunity", new { id = el.Id }, FormMethod.Post))
                     {
                         <tr class="lcRow">
-                            <th scope="row">@counter</th>
+                            <th scope="row">
+                                @((Model.PageInfo.PageNumber - 1) * (Model.PageInfo.PageSize) + counter)
+                            </th>
                             <td class="titleData">@el.Title</td>
                             <td>@el.Employees.Count()</td>
                             <td>
@@ -58,6 +61,20 @@
                 }
             </tbody>
         </table>
+
+        <div class="btn-group m-auto">
+            @for (int i = 1; i <= Model.PageInfo.TotalPages; i++)
+            {
+                if (i == Model.PageInfo.PageNumber)
+                {
+                    <a href="@Url.Action("Index", new { otherVm = Model, page = i })" class="btn selected btn-primary">@i.ToString()</a>
+                }
+                else
+                {
+                    <a href="@Url.Action("Index", new { otherVm = Model, page = i })" class="btn btn-default">@i.ToString()</a>
+                }
+            }
+        </div>
 
     </div>
     <div class="col-3">
