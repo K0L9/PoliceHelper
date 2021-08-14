@@ -22,6 +22,7 @@ namespace AdminLTE.Models
         public string MiddleName{ get; set; }
 
         [Required]
+        [DataType(DataType.PhoneNumber)]
         public string Number { get; set; }
         public string PhotoPath { get; set; }
 
@@ -29,6 +30,7 @@ namespace AdminLTE.Models
         public int LocalCommunityId{ get; set; }
 
         //navigation prop
+        [Required]
         public virtual LocalCommunity LocalCommunity { get; set; }
     }
 }

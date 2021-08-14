@@ -3,10 +3,18 @@
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
 }
-<h2>Добавлення нового працівника</h2>
+@if (Model.Employee.Id != 0)
+{
+    <h2>Редагування працівника</h2>
+}
+else
+{
+    <h2>Добавлення нового працівника</h2>
+}
 <form method="post" enctype="multipart/form-data">
     <input asp-for="Employee.Id" hidden />
     <div class="container">
+        <div class="validation" asp-validation-summary="ModelOnly"></div>
         <div class="row my-3">
             <div class="col">
                 <div class="input-group">
@@ -46,11 +54,24 @@
             </div>
         </div>
         <div class="row justify-content-end">
-            <button type="button" class="btn btn-secondary mr-3 p-3" asp-controller="Employee" asp-action="Cancel">Очистити</button>
-            <input type="submit" class="btn btn-success p-3" value="Створити" />
+            @if (Model.Employee.Id != 0)
+            {
+                <button type="button" class="btn btn-secondary mr-3 p-3" asp-controller="Employee" asp-action="Cancel" disabled>Очистити</button>
+                <input type="submit" class="btn btn-success p-3" value="Зберегти" />
+            }
+            else
+            {
+                <button type="button" class="btn btn-secondary mr-3 p-3" asp-controller="Employee" asp-action="Cancel">Очистити</button>
+                <input type="submit" class="btn btn-success p-3" value="Створити" />
+            }
         </div>
     </div>
 </form>
+
+@*@section Scripts{
+
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }*@
 
 @*<script>
         var inputPhoto = document.getElementById("upload");

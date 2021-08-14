@@ -11,6 +11,7 @@ namespace AdminLTE.Models
         public int Id { get; set; }
 
         [Required]
+        [MinLength(3, ErrorMessage = "Назва повинна мати мінімум 3 символи")]
         public string Title { get; set; }
 
         //navigation prop

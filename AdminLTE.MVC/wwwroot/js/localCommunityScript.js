@@ -31,14 +31,11 @@ function DenyRemove(event) {
 }
 
 function Edit(event) {
-    console.log("Before select mode to edit");
-    console.log("After select mode to edit");
     var btn = event.target;
     //Get data
     var idOfEdit = btn.closest("td").getElementsByClassName("hiddenID")[0].value;
-    console.log(idOfEdit)
-    var titleOfEdit = btn.closest("td").closest("tr").getElementsByClassName("titleInput")[0].value;
-    console.log(titleOfEdit)
+
+    var titleOfEdit = btn.closest("td").closest("tr").getElementsByClassName("titleData")[0].innerHTML;
 
     //write data to edit window
     var input = document.getElementById("inputTitle");
@@ -53,7 +50,6 @@ function Edit(event) {
     //view
     document.getElementById("btnConfirmTitle").value = "Зберегти";
     document.getElementById("addTitle").innerHTML = "Редагування територіальної громади";
-
 }
 
 var btnsEdit = document.getElementsByClassName("btnEdit");
@@ -72,15 +68,3 @@ var btnsDeny = document.getElementsByClassName("btnCancel");
 for (var i = 0; i < btnsDeny.length; i++) {
     btnsDeny[i].onclick = DenyRemove;
 }
-
-// $('#demo').pagination({
-//    dataSource: [1, 2, 3, 4, 5, 6, 7, ... , 35],
-//    pageSize: 5,
-//    autoHidePrevious: true,
-//    autoHideNext: true,
-//    callback: function (data, pagination) {
-//        // template method of yourself
-//        var html = template(data);
-//        dataContainer.html(html);
-//    }
-//}) 
