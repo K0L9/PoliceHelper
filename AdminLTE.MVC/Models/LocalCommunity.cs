@@ -10,7 +10,8 @@ namespace AdminLTE.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="Введіть назву")]
+        [Display(Name ="Назва")]
         [MinLength(3, ErrorMessage = "Назва повинна мати мінімум 3 символи")]
         public string Title { get; set; }
 

@@ -118,6 +118,7 @@ else if (Model.Mode == AdminLTE.Models.ViewModels.IndexMode.SelectForRemove)
     </table>
     @*href="@Url.Action("Index", new { otherVm = Model, page = i })"*@
 <div class="btn-group m-auto">
+    @*TODO:БАГ: якщо обираєш фільтр - пагінація не працює*@ 
     @for (int i = 1; i <= Model.PageInfo.TotalPages; i++)
     {
         Html.BeginForm("Index", "Employee", new { otherVm = Model, page = i, mode = Model.Mode, lcId = Model.Filter.LCId });

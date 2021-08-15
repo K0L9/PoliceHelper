@@ -11,22 +11,24 @@ namespace AdminLTE.Models
     {
         public int Id { get; set; }
 
-        [DisplayName("First name")]
-        [Required]
+        [DisplayName("Ім'я")]
+        [Required(ErrorMessage ="Введіть ім'я")]
         public string FirstName { get; set; }
-        [DisplayName("Last name")]
-        [Required]
+
+        [DisplayName("Прізвище")]
+        [Required(ErrorMessage ="Введіть прізвище")]
         public string LastName { get; set; }
-        [DisplayName("Middle name")]
-        [Required]
+
+        [DisplayName("По-батькові")]
         public string MiddleName{ get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="Введіть номер телефону")]
         [DataType(DataType.PhoneNumber)]
         public string Number { get; set; }
         public string PhotoPath { get; set; }
 
         //foreign keys
+        [Required(ErrorMessage ="Оберіть ОТГ")]
         public int LocalCommunityId{ get; set; }
 
         //navigation prop

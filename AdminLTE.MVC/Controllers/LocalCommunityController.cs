@@ -27,7 +27,7 @@ namespace AdminLTE.Controllers
             int lcCount = localCommunities.Count();
             localCommunities = localCommunities.Skip((page - 1) * pageSize).Take(pageSize);
 
-            LocalCommunityVM lcvm = new LocalCommunityVM() 
+            LocalCommunityVM lcvm = new LocalCommunityVM()
             {
                 LocalCommunities = localCommunities,
                 LocalCommunity = new LocalCommunity(),
@@ -38,9 +38,12 @@ namespace AdminLTE.Controllers
         }
         public IActionResult Add(string title)
         {
-            LocalCommunity lc = new LocalCommunity() { Title = title };
-            _db.LocalCommunities.Add(lc);
-            _db.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                LocalCommunity lc = new LocalCommunity() { Title = title };
+                _db.LocalCommunities.Add(lc);
+                _db.SaveChanges();
+            }
 
             return RedirectToAction(nameof(Index));
         }
