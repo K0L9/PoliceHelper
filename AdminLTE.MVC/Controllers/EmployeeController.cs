@@ -10,7 +10,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace AdminLTE.Controllers
 {
@@ -23,8 +22,8 @@ namespace AdminLTE.Controllers
             _db = db;
             _wb = wb;
         }
-         
-        public IActionResult Index(EmployeesLocalCommunitiesVM otherVm = null, int page = 1, IndexMode mode = IndexMode.Show, int lcId = -1)
+
+        public IActionResult Index(EmployeesLocalCommunitiesVM otherVm = null, int page = 1, IndexMode mode = IndexMode.Show, MessageType message = MessageType.NONE)
         {
             int pageSize = 10;
 
@@ -51,6 +50,23 @@ namespace AdminLTE.Controllers
                 PageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = empCount },
                 IsFilter = false
             };
+
+            switch (message)
+            {
+                case MessageType.ADD:
+                    ViewBag.JavaScriptFunction = string.Format("ShowMessage('{0}', '{1}');", "Робітник успішно добавлений", "success");
+                    break;
+                case MessageType.REMOVE:
+                    ViewBag.JavaScriptFunction = string.Format("ShowMessage('{0}', '{1}');", "Робітник успішно видалений", "success");
+                    break;
+                case MessageType.EDIT:
+                    ViewBag.JavaScriptFunction = string.Format("ShowMessage('{0}', '{1}');", "Робітник успішно відредагований", "success");
+                    break;
+                case MessageType.ERROR:
+                    ViewBag.JavaScriptFunction = string.Format("ShowMessage('{0}', '{1}');", "Виникла помилка", "error");
+                    break;
+            }
+
             return View(vm);
         }
         public IActionResult Remove()
@@ -69,14 +85,22 @@ namespace AdminLTE.Controllers
         [HttpPost]
         public IActionResult Remove(int id)
         {
-            Employee emp = _db.Employees.Find(id);
-            if (emp == null)
-                return NotFound();
+            try
+            {
+                Employee emp = _db.Employees.Find(id);
+                if (emp == null)
+                    return NotFound();
 
-            _db.Remove(emp);
-            _db.SaveChanges();
+                _db.Remove(emp);
+                _db.SaveChanges();
 
-            return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { otherVm = (EmployeesLocalCommunitiesVM)null, page = 1, mode = IndexMode.Show, message = MessageType.REMOVE });
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction(nameof(Index), new { otherVm = (EmployeesLocalCommunitiesVM)null, page = 1, mode = IndexMode.Show, message = MessageType.ERROR });
+            }
+
         }
         public IActionResult Upsert(int? id)
         {
@@ -103,8 +127,10 @@ namespace AdminLTE.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Upsert(EmployeeLCVM emp)
         {
-            if (ModelState.IsValid)
+            //HACK: Тут косяк. Чогось модель не проходить валідацію, через те, що employee.LocalCommunity == null, тому я провіряю чи помилка лоше одна, конкретно по ньому
+            if (!ModelState.IsValid && ModelState.ErrorCount == 1)
             {
+                MessageType messType = MessageType.ADD;
                 var files = HttpContext.Request.Form.Files;
                 string webRootPath = _wb.WebRootPath;
                 string upload = webRootPath + ENV.ImagePath;
@@ -136,6 +162,7 @@ namespace AdminLTE.Controllers
                 }
                 else
                 {
+                    messType = MessageType.EDIT;
                     var formObject = _db.Employees.AsNoTracking().FirstOrDefault(u => u.Id == emp.Employee.Id);
                     if (files.Count > 0)
                     {
@@ -157,10 +184,9 @@ namespace AdminLTE.Controllers
                     _db.Employees.Update(emp.Employee);
                 }
                 _db.SaveChanges();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { otherVm = (EmployeesLocalCommunitiesVM)null, page = 1, mode = IndexMode.Show, message = messType });
             }
-
-            return RedirectToAction(nameof(Upsert));
+            return RedirectToAction(nameof(Index), new { otherVm = (EmployeesLocalCommunitiesVM)null, page = 1, mode = IndexMode.Show, message = MessageType.ERROR });
         }
         public IActionResult Cancel()
         {

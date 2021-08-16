@@ -34,7 +34,6 @@ namespace AdminLTE.MVC
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnections")));
 
-            //HACK: зробити людський вивід помилок
             services.AddDefaultIdentity<IdentityUser>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = false;

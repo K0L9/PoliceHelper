@@ -21,7 +21,7 @@ else
                     <span class="input-group-text" id="">П.І.Б.</span>
                 </div>
 
-                <input type="text" asp-for="Employee.LastName" placeholder="Прізвище" class="form-control" aria-describedby="inputGroupPrepend2" required />
+                <input type="text" asp-for="Employee.LastName" placeholder="Прізвище" class="form-control" />
 
                 <input type="text" asp-for="Employee.FirstName" placeholder="Ім'я" class="form-control" />
 
@@ -38,7 +38,7 @@ else
             </div>
         </div>
         <div class="row">
-            <input type="text" asp-for="Employee.Number" placeholder="Номер телефону" class="form-control cc" required />
+            <input type="text" asp-for="Employee.Number" placeholder="Номер телефону" class="form-control cc" />
             <div class="invalid-feedback d-block mb-3">
                 <span class="text-danger" asp-validation-for="Employee.Number"></span>
             </div>

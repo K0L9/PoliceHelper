@@ -19,6 +19,9 @@
         text-align: center;
     }
 </style>
+@*TODO: Filter for surname, name*@
+@*TODO: fix td buttons, they must not be bigger*@
+@*TODO:*@
 
 @if (Model.Mode == AdminLTE.Models.ViewModels.IndexMode.Show)
 {
@@ -38,6 +41,7 @@ else if (Model.Mode == AdminLTE.Models.ViewModels.IndexMode.SelectForRemove)
 
 <form>
     <div class="row justify-content-end my-3">
+        <input type="text" asp-for="Filter.Surname" class="form-control" />
         <select asp-for="Filter.LCId" asp-items="@Model.LocalCommunities" class="px-2">
             <option selected>Усі ОТГ</option>
         </select>
@@ -117,27 +121,36 @@ else if (Model.Mode == AdminLTE.Models.ViewModels.IndexMode.SelectForRemove)
         </tbody>
     </table>
     @*href="@Url.Action("Index", new { otherVm = Model, page = i })"*@
-<div class="btn-group m-auto">
-    @*TODO:БАГ: якщо обираєш фільтр - пагінація не працює*@ 
-    @for (int i = 1; i <= Model.PageInfo.TotalPages; i++)
-    {
-        Html.BeginForm("Index", "Employee", new { otherVm = Model, page = i, mode = Model.Mode, lcId = Model.Filter.LCId });
+    <div class="btn-group m-auto">
+        @*TODO:БАГ: якщо обираєш фільтр - пагінація не працює*@
+        @for (int i = 1; i <= Model.PageInfo.TotalPages; i++)
         {
-            if (i == Model.PageInfo.PageNumber)
+            Html.BeginForm("Index", "Employee", new { otherVm = Model, page = i, mode = Model.Mode });
             {
-                <input type="submit" class="btn selected btn-primary" value="@i.ToString()"/>
+                if (i == Model.PageInfo.PageNumber)
+                {
+                    <input type="submit" class="btn selected btn-primary" value="@i.ToString()" />
+                }
+                else
+                {
+                    <input type="submit" class="btn btn-default" value="@i.ToString()" />
+                }
             }
-            else
-            {
-                <input type="submit" class="btn btn-default" value="@i.ToString()"/>
-            }
+            Html.EndForm();
         }
-        Html.EndForm();
-    }
-</div>
+    </div>
 </div>
 
+<script src="~/plugins/jquery/jquery.min.js"></script>
+<script src="~/plugins/toastr/toastr.min.js"></script>
 <script>
+    function ShowMessage(message, type) {
+        if (type == "error")
+            toastr.error(message)
+        else if (type == "success")
+            toastr.success(message)
+    };
+
     var rowsHover = document.getElementsByClassName("tableRow");
 
     for (var i = 0; i < rowsHover.length; i++) {
@@ -166,3 +179,9 @@ else if (Model.Mode == AdminLTE.Models.ViewModels.IndexMode.SelectForRemove)
         row.getElementsByClassName("forHover")[0].hidden = false;
     }
 </script>
+@if (ViewBag.JavaScriptFunction != null)
+{
+    <script type="text/javascript">
+        @Html.Raw(ViewBag.JavaScriptFunction)
+    </script>
+}

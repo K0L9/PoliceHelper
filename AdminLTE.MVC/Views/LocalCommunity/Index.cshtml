@@ -101,17 +101,20 @@
                         </div>
                     </div>
                 </div>
-                //TODO: Навести красоти, якось було видно що нас перекидає туди при едіті. ВАЛІДАЦІЯ
             }
         </div>
     </div>
 </div>
 @section scripts{
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/plugins/toastr/toastr.min.js"></script>
     <script>
-
-        //$("#lcForm").validate();
-        //$("#lcForm").removeAttr("novalidate");
+        function ShowMessage(message, type) {
+            if (type == "error")
+                toastr.error(message)
+            else if (type == "success")
+                toastr.success(message)
+        };
 
         function MarkToRed(event) {
             var i = event.target;
@@ -185,4 +188,10 @@
         }
     </script>
 
+    @if (ViewBag.JavaScriptFunction != null)
+    {
+        <script type="text/javascript">
+        @Html.Raw(ViewBag.JavaScriptFunction)
+        </script>
+    }
 }

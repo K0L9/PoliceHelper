@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "zQxAj4zlbBkMoYkCaOaiKXMP/pEWmRUFi+cNjhjRW4DDRUsiYZ+eLginCpTWrQBBfpoaukC2OrJYYHk32id/3g==",
+  "dgSpecHash": "VEpMxQamUveH9sv7LWv/K8fE22BW3t5KPFLkuB+mduQA+rXFqv2wfEMRRZvpI1lPMoqY728Gd5aASVz52j3fRQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\koval\\OneDrive\\Рабочий стол\\PoliceHelper\\PoliceHelper\\AdminLTE.MVC\\AdminLTE.MVC.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\koval\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
+    "C:\\Users\\koval\\.nuget\\packages\\jquery\\1.6.3\\jquery.1.6.3.nupkg.sha512",
     "C:\\Users\\koval\\.nuget\\packages\\microsoft.aspnet.mvc\\5.2.7\\microsoft.aspnet.mvc.5.2.7.nupkg.sha512",
     "C:\\Users\\koval\\.nuget\\packages\\microsoft.aspnet.razor\\3.2.7\\microsoft.aspnet.razor.3.2.7.nupkg.sha512",
     "C:\\Users\\koval\\.nuget\\packages\\microsoft.aspnet.webpages\\3.2.7\\microsoft.aspnet.webpages.3.2.7.nupkg.sha512",
@@ -165,7 +166,8 @@
     "C:\\Users\\koval\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\koval\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\koval\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\koval\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
+    "C:\\Users\\koval\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512",
+    "C:\\Users\\koval\\.nuget\\packages\\toastr\\2.1.1\\toastr.2.1.1.nupkg.sha512"
   ],
   "logs": [
     {

@@ -8,5 +8,6 @@ namespace AdminLTE.Models.ViewModels
     public class EmployeesFilterVM
     {
         public int LCId { get; set; }
+        public string Surname { get; set; }
     }
 }
