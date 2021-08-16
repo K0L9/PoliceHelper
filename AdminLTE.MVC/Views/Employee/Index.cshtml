@@ -19,10 +19,6 @@
         text-align: center;
     }
 </style>
-@*TODO: Filter for surname, name*@
-@*TODO: fix td buttons, they must not be bigger*@
-@*TODO:*@
-
 @if (Model.Mode == AdminLTE.Models.ViewModels.IndexMode.Show)
 {
     <h1>Усі працівники</h1>
@@ -30,20 +26,20 @@
 }
 else if (Model.Mode == AdminLTE.Models.ViewModels.IndexMode.SelectForEdit)
 {
-    <h2>Редагування працівника</h2>
+    <h1>Редагування працівника</h1>
     <h5>Натисніть для редагування</h5>
 }
 else if (Model.Mode == AdminLTE.Models.ViewModels.IndexMode.SelectForRemove)
 {
-    <h2>Видалення працівника</h2>
+    <h1>Видалення працівника</h1>
     <h5>Натисніть для видалення</h5>
 }
 
 <form>
     <div class="row justify-content-end my-3">
-        <input type="text" asp-for="Filter.Surname" class="form-control" />
-        <select asp-for="Filter.LCId" asp-items="@Model.LocalCommunities" class="px-2">
-            <option selected>Усі ОТГ</option>
+        <input type="text" asp-for="Filter.Surname" class="form-control mr-3" style="width: auto;" placeholder="Прізвище" />
+        <select asp-for="Filter.LCId" asp-items="@Model.LocalCommunities" class="px-4 custom-select select" style="width: auto;">
+            <option selected>Усі територіальні громади</option>
         </select>
         <input type="submit" value="Пошук" class="btn btn-primary ml-3 px-2" />
     </div>
@@ -74,16 +70,16 @@ else if (Model.Mode == AdminLTE.Models.ViewModels.IndexMode.SelectForRemove)
                             {
                                 <form action="\Employee\Remove\" method="post">
                                     <input value="@el.Id" name="id" hidden />
-                                    <button type="button" class="btn btnCancel"><i class="far fa-times-circle"></i></button>
-                                    <button type="submit" class="btn btnOk"><i class="far fa-check-circle"></i></button>
+                                    <button type="button" class="btn btnCancel p-0"><i class="far fa-times-circle"></i></button>
+                                    <button type="submit" class="btn btnOk p-0 ml-3"><i class="far fa-check-circle"></i></button>
                                 </form>
                             }
                             @if (Model.Mode == AdminLTE.Models.ViewModels.IndexMode.SelectForEdit)
                             {
                                 <form action="\Employee\Edit\" method="post">
                                     <input value="@el.Id" name="id" hidden />
-                                    <button type="button" class="btn btnCancel"><i class="far fa-times-circle"></i></button>
-                                    <button type="submit" class="btn btnOk"><i class="far fa-check-circle"></i></button>
+                                    <button type="button" class="btn btnCancel p-0"><i class="far fa-times-circle"></i></button>
+                                    <button type="submit" class="btn btnOk p-0 ml-3"><i class="far fa-check-circle"></i></button>
                                 </form>
                             }
                         </td>
@@ -143,6 +139,41 @@ else if (Model.Mode == AdminLTE.Models.ViewModels.IndexMode.SelectForRemove)
 
 <script src="~/plugins/jquery/jquery.min.js"></script>
 <script src="~/plugins/toastr/toastr.min.js"></script>
+@if (Model.Mode == AdminLTE.Models.ViewModels.IndexMode.SelectForRemove)
+{
+    <script>
+        var rowsHover = document.getElementsByClassName("tableRow");
+
+        for (var i = 0; i < rowsHover.length; i++) {
+            rowsHover[i].onclick = EnableControlBtns;
+        }
+        function EnableControlBtns(event) {
+            var row = event.target.closest("tr");
+            row.setAttribute("class", "tableRow bg-danger")
+
+            row.getElementsByClassName("tdButtons")[0].hidden = false;
+            row.getElementsByClassName("forHover")[0].hidden = true;
+        }
+    </script>
+}
+@if (Model.Mode == AdminLTE.Models.ViewModels.IndexMode.SelectForEdit)
+{
+    <script>
+        var rowsHover = document.getElementsByClassName("tableRow");
+
+        for (var i = 0; i < rowsHover.length; i++) {
+            rowsHover[i].onclick = EnableControlBtns;
+        }
+        function EnableControlBtns(event) {
+            var row = event.target.closest("tr");
+            row.setAttribute("class", "tableRow bg-info")
+
+            row.getElementsByClassName("tdButtons")[0].hidden = false;
+            row.getElementsByClassName("forHover")[0].hidden = true;
+        }
+    </script>
+}
+
 <script>
     function ShowMessage(message, type) {
         if (type == "error")
@@ -151,27 +182,15 @@ else if (Model.Mode == AdminLTE.Models.ViewModels.IndexMode.SelectForRemove)
             toastr.success(message)
     };
 
-    var rowsHover = document.getElementsByClassName("tableRow");
-
-    for (var i = 0; i < rowsHover.length; i++) {
-        rowsHover[i].onclick = EnableControlBtns;
-    }
-
     var btnsCancel = document.getElementsByClassName("btnCancel");
 
     for (var i = 0; i < btnsCancel.length; i++) {
         btnsCancel[i].onclick = DenyRemove;
     }
 
-    function EnableControlBtns(event) {
-        var row = event.target.closest("tr");
-        row.setAttribute("class", "tableRow bg-danger")
-
-        row.getElementsByClassName("tdButtons")[0].hidden = false;
-        row.getElementsByClassName("forHover")[0].hidden = true;
-    }
-
     function DenyRemove(event) {
+        //TODO: Bug. It isn't work
+        console.log("IT WORKS");
         var row = event.target.closest("tr");
 
         row.setAttribute("class", "tableRow")

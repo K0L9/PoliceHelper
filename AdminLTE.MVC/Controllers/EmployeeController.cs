@@ -29,10 +29,16 @@ namespace AdminLTE.Controllers
 
             IEnumerable<Employee> employees;
 
-            if (otherVm == null || otherVm.Filter == null || otherVm.Filter.LCId == 0)
+            if (otherVm == null || otherVm.Filter == null || (otherVm.Filter.LCId == 0 && otherVm.Filter.Surname == null))
                 employees = _db.Employees.Include(x => x.LocalCommunity);
-            else
+            else if (otherVm.Filter.LCId != 0 && otherVm.Filter.Surname == null)
                 employees = _db.Employees.Where(x => x.LocalCommunityId == otherVm.Filter.LCId).Include(x => x.LocalCommunity);
+            else if (otherVm.Filter.LCId != 0 && otherVm.Filter.Surname != null)
+                employees = _db.Employees.Where(x => x.LocalCommunityId == otherVm.Filter.LCId && x.LastName.Contains(otherVm.Filter.Surname)).Include(x => x.LocalCommunity);
+            else if (otherVm.Filter.LCId == 0 && otherVm.Filter.Surname != null)
+                employees = _db.Employees.Where(x => x.LastName.Contains(otherVm.Filter.Surname)).Include(x => x.LocalCommunity);
+            else
+                employees = _db.Employees.Include(x => x.LocalCommunity);
 
             int empCount = employees.Count();
             employees = employees.Skip((page - 1) * pageSize).Take(pageSize);

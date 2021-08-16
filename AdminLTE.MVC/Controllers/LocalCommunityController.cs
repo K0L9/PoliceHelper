@@ -77,8 +77,6 @@ namespace AdminLTE.Controllers
 
             return RedirectToAction(nameof(Index), new { page = 1, message = MessageType.ERROR });
         }
-
-        //TODO: Notifications (до прикладу при добавленні і т.д.)
         public IActionResult Edit(int id, string title)
         {
             try
