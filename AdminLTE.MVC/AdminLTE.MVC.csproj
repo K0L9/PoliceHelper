@@ -8,6 +8,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\plugins\cropperjs-main\.github\CODE_OF_CONDUCT.md" />
+    <None Include="wwwroot\plugins\cropperjs-main\.github\CONTRIBUTING.md" />
+    <None Include="wwwroot\plugins\cropperjs-main\.github\ISSUE_TEMPLATE\bug_report.md" />
+    <None Include="wwwroot\plugins\cropperjs-main\.github\ISSUE_TEMPLATE\feature_request.md" />
+    <None Include="wwwroot\plugins\cropperjs-main\.github\PULL_REQUEST_TEMPLATE.md" />
+    <None Include="wwwroot\plugins\cropperjs-main\.github\workflows\ci.yml" />
+    <None Include="wwwroot\plugins\cropperjs-main\.husky\.gitignore" />
+    <None Include="wwwroot\plugins\cropperjs-main\.husky\commit-msg" />
+    <None Include="wwwroot\plugins\cropperjs-main\.husky\pre-commit" />
+    <None Include="wwwroot\plugins\Croppie-2.6.4\.github\ISSUE_TEMPLATE.md" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.8" />

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using AdminLTE.MVC.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Text;
 
 namespace AdminLTE.MVC.Controllers
 {
@@ -33,6 +34,26 @@ namespace AdminLTE.MVC.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [HttpPost]
+        public IActionResult Save(string image)
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult SaveImage()
+        {
+
+            int len = (int)HttpContext.Request.Body.Length;
+            byte[] buffer = new byte[len];
+            int c = Request.Body.Read(buffer, 0, len);
+            string png64 = Encoding.UTF8.GetString(buffer, 0, len);
+            byte[] png = Convert.FromBase64String(png64);
+            System.IO.File.WriteAllBytes("c:\\a.png", png);
+            //string pngz = Encoding.UTF8.GetString(png, 0, png.Length);
+            //code.....
+            return RedirectToAction("Index", "Home");
         }
     }
 }
